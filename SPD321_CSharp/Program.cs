@@ -4,6 +4,28 @@ namespace SPD321_CSharp
 {
     internal class Program
     {
+        
+        static void Func(ref int[] arr, ref int a, out int b)
+        {
+            arr = new int[] { 5, 6, 7, 8 };
+            arr[0] = 100;
+            a = 200;
+            Console.WriteLine("In Func");
+            Console.WriteLine(arr[0]);
+            Console.WriteLine(a);
+            b = 100;
+        }
+
+        static int Sum(int c, params object[] arr)
+        {
+            int res = 0;
+            foreach (int i in arr)
+            {
+                res += i;
+            }
+            return res;
+        }
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -12,6 +34,84 @@ namespace SPD321_CSharp
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
+
+
+            //// 13.04.2024 ///////
+            ///
+
+            //Point p = new Point(ConsoleColor.Red);
+            //p.Print();
+            //p.X = -100;
+            //p.MyProperty = 0;
+            
+
+            //Console.WriteLine(Point.X);
+            //Console.WriteLine(p.Color);
+            //p.Color = ConsoleColor.Red;
+            //int[] arr = { 1, 2, 3, 4 };
+            //int a = 0;
+            //int b;
+            //Func(ref arr, ref a, out b);
+            //Console.WriteLine(arr[0]);
+            //Console.WriteLine(a);
+            //Console.WriteLine(b);
+            //Console.WriteLine(Sum(1,2,3,5,5));
+
+
+            //Student[] students =  
+            //{ 
+            //    new Student(){ Id=1,  Name="Anna", BirthDay = new DateOnly(2000, 2, 10), Group = new Group(){ Id=321, Name="SPD321"} },
+            //    new Student(){ Id=2,  Name="Olga", BirthDay = new DateOnly(1999, 2, 17) , Group = new Group(){ Id=321, Name="SPD321"} },
+            //    new Student(){ Id=3,  Name="Egor", BirthDay = new DateOnly(2025, 12, 25), Group = new Group(){ Id=321, Name="SPD321"}  },
+            //    new Student(){ Id=4,  Name="Frol", BirthDay = new DateOnly(2001, 5, 15), Group = new Group(){ Id=321, Name="SPD321"}  },
+            //};
+
+            //foreach (Student s in students)
+            //{
+            //    s.Print();
+            //}
+
+            //Console.WriteLine(students[0].Group!.Name);
+            //#A1BBE3FF
+            //
+
+            // -, ++, --
+            // + - * / % | & >> << 
+            // !
+            // > <    <= >=    == !=  && ||
+            
+            Point p = new Point(2, 5);
+            Point p2 = -p;
+            p2.Print();
+            p++;
+            ++p;
+            p.Print();
+            Point p3 = p * 3;  //p.op+(3)
+            p3.Print();
+
+            Point p4 = 3 * p; //3
+            p3.Print();
+
+            p *= 3;
+            p += p2;
+
+            Console.WriteLine(p.GetHashCode());
+            Console.WriteLine(p3.GetHashCode());
+
+
+            if (p && p2)
+            {
+
+            }
+
+
+            float f = (float)p;
+
+            Point p5 = 10;
+
+            Console.WriteLine(p["Color"]);
+            Console.WriteLine(p[2]);
+            Console.WriteLine(p[2, 5]);
 
             //// 06.04.2024 ///////
             ///
@@ -128,13 +228,13 @@ namespace SPD321_CSharp
             //Console.WriteLine(sb.Capacity);
 
 
-            string str = "today is a good day for walking? i will try to walk near the sea.";
-            var st = str.Split(" ".ToCharArray());
-            st[0]  = st[0].ToCharArray()[0].ToString().ToUpper();
-            foreach (string s in st)
-            {
-                Console.WriteLine(s);
-            }
+            //string str = "today is a good day for walking? i will try to walk near the sea.";
+            //var st = str.Split(" ".ToCharArray());
+            //st[0]  = st[0].ToCharArray()[0].ToString().ToUpper();
+            //foreach (string s in st)
+            //{
+            //    Console.WriteLine(s);
+            //}
 
 
 
