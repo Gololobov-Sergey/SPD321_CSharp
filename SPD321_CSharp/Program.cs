@@ -4,7 +4,7 @@ namespace SPD321_CSharp
 {
     internal class Program
     {
-        
+
         static void Func(ref int[] arr, ref int a, out int b)
         {
             arr = new int[] { 5, 6, 7, 8 };
@@ -26,6 +26,12 @@ namespace SPD321_CSharp
             return res;
         }
 
+
+        static void Work(IWork obj)
+        {
+            obj.Work();
+        }
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -35,6 +41,90 @@ namespace SPD321_CSharp
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
+            //// 20.04.2024 ///////
+            ///
+
+
+            Array array = new Array();
+
+            
+
+            AAA aaa = new AAA();
+            aaa.Show();
+
+            ((IA)aaa).Show();
+
+            //IA ia = new AAA();
+            //ia.Show();
+
+            //IB ib = new AAA();
+            //ib.Show();
+
+            //IC ic = new AAA();
+            //ic.Show();
+
+
+            //Passport p = new Passport()
+            //{
+            //    Series = "AB",
+            //    Number = 123456,
+            //    Name = "Serg",
+            //    BirthDay = new DateOnly(2000, 12, 5),
+            //};
+
+            //Console.WriteLine(p.GetHashCode());
+
+            //var m = p.GetType().GetMethods();
+            //foreach (var m2 in m)
+            //{
+            //    Console.WriteLine(m2.Name);
+            //}
+
+
+            //Human h = new Human(1, "Serg");
+            //h.Print();
+
+            //Employee e = new Employee(2, "Anna", 1000);
+            //e.Print();
+
+            //IWork[] empl = new IWork[]
+            //{
+            //    new Director(1, "Serg", 1000, 5),
+            //    new Buhgalter(2, "Anna", 500, 10),
+            //    new CleaningManager(3, "Olga", 200, 100)
+            //};
+
+            //foreach (IWork emp in empl)
+            //{
+            //    ((Employee)emp).WhoAmI();
+            //    emp.Work();
+            //    Console.WriteLine(emp);
+
+
+            //    //try
+            //    //{
+            //    //    ((Director)emp).PrintDirector();
+            //    //}
+            //    //catch { }
+
+
+            //    //Buhgalter b = emp as Buhgalter;
+            //    //if (b != null)
+            //    //{
+            //    //    b.PrintBuhgalter();
+            //    //}
+
+            //    //if(emp is CleaningManager)
+            //    //{
+            //    //    (emp as CleaningManager).PrintCleaningManager();
+            //    //}
+            //}
+
+
+
+
+
+
 
             //// 13.04.2024 ///////
             ///
@@ -43,7 +133,7 @@ namespace SPD321_CSharp
             //p.Print();
             //p.X = -100;
             //p.MyProperty = 0;
-            
+
 
             //Console.WriteLine(Point.X);
             //Console.WriteLine(p.Color);
@@ -79,39 +169,39 @@ namespace SPD321_CSharp
             // + - * / % | & >> << 
             // !
             // > <    <= >=    == !=  && ||
-            
-            Point p = new Point(2, 5);
-            Point p2 = -p;
-            p2.Print();
-            p++;
-            ++p;
-            p.Print();
-            Point p3 = p * 3;  //p.op+(3)
-            p3.Print();
 
-            Point p4 = 3 * p; //3
-            p3.Print();
+            //Point p = new Point(2, 5);
+            //Point p2 = -p;
+            //p2.Print();
+            //p++;
+            //++p;
+            //p.Print();
+            //Point p3 = p * 3;  //p.op+(3)
+            //p3.Print();
 
-            p *= 3;
-            p += p2;
+            //Point p4 = 3 * p; //3
+            //p3.Print();
 
-            Console.WriteLine(p.GetHashCode());
-            Console.WriteLine(p3.GetHashCode());
+            //p *= 3;
+            //p += p2;
 
-
-            if (p && p2)
-            {
-
-            }
+            //Console.WriteLine(p.GetHashCode());
+            //Console.WriteLine(p3.GetHashCode());
 
 
-            float f = (float)p;
+            //if (p && p2)
+            //{
 
-            Point p5 = 10;
+            //}
 
-            Console.WriteLine(p["Color"]);
-            Console.WriteLine(p[2]);
-            Console.WriteLine(p[2, 5]);
+
+            //float f = (float)p;
+
+            //Point p5 = 10;
+
+            //Console.WriteLine(p["Color"]);
+            //Console.WriteLine(p[2]);
+            //Console.WriteLine(p[2, 5]);
 
             //// 06.04.2024 ///////
             ///
