@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 
 namespace SPD321_CSharp
 {
@@ -41,18 +42,40 @@ namespace SPD321_CSharp
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
+
+            //// 27.04.2024 ///////
+            ///
+
+
+            Group group = new Group();
+            foreach (Student s in group)
+            {
+                Console.WriteLine(s);
+            }
+
+            group.Sort(new DateComparer());
+            Console.WriteLine();
+            foreach (Student s in group)
+            {
+                Console.WriteLine(s);
+            }
+
+            
+
+            //group.GetEnumerator();
+
             //// 20.04.2024 ///////
             ///
 
 
-            Array array = new Array();
+            //Array array = new Array();
 
-            
 
-            AAA aaa = new AAA();
-            aaa.Show();
 
-            ((IA)aaa).Show();
+            //AAA aaa = new AAA();
+            //aaa.Show();
+
+            //((IA)aaa).Show();
 
             //IA ia = new AAA();
             //ia.Show();

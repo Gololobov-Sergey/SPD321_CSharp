@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace SPD321_CSharp
 {
 
-    class Array
-    {
+    //class Array
+    //{
 
-    }
+    //}
 
     internal interface IWork
     {

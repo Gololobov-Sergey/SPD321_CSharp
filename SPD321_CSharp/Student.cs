@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SPD321_CSharp
 {
-    internal class Student
+    internal class Student_1
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -24,7 +24,7 @@ namespace SPD321_CSharp
             }
         }
 
-        public Group? Group { get; set; }
+        public Group_1? Group { get; set; }
 
 
         public void Print()
@@ -35,7 +35,7 @@ namespace SPD321_CSharp
         
     }
 
-    class Group
+    class Group_1
     {
         public int Id { get; set; }
         public string? Name { get; set; }
