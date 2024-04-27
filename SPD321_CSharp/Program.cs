@@ -27,10 +27,37 @@ namespace SPD321_CSharp
             return res;
         }
 
+        static void Div(int a, int b)
+        {
+            int r = a / b;
+            Console.WriteLine(r);
+        }
+
+        static void Div2(int a, int b)
+        {
+            try
+            {
+                Div(a, b);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("InnerEx"/*, ex*/);
+            }
+        }
 
         static void Work(IWork obj)
         {
             obj.Work();
+        }
+
+
+        static void SuperFunc(string strname)
+        {
+            if (strname ==  null)
+            {
+                throw new ArgumentNullException(nameof(strname));
+            }
+            Console.WriteLine(strname);
         }
 
         static void Main(string[] args)
@@ -46,21 +73,100 @@ namespace SPD321_CSharp
             //// 27.04.2024 ///////
             ///
 
+            //try
+            //{
+            //    SuperFunc(null);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
 
-            Group group = new Group();
-            foreach (Student s in group)
-            {
-                Console.WriteLine(s);
-            }
+            //int c = ConsoleMenu.SelectVertical(HPosition.Left, VPosition.Top, HorizontalAlignment.Center, "DEC to BIN", "BIN to DEC");
 
-            group.Sort(new DateComparer());
-            Console.WriteLine();
-            foreach (Student s in group)
-            {
-                Console.WriteLine(s);
-            }
 
-            
+            //byte b = 100;
+            //Console.WriteLine(b);
+            //b += 200;
+            //Console.WriteLine(b);
+
+
+            //int a, b;
+
+            //try
+            //{
+            //    a = Convert.ToInt32(Console.ReadLine());
+            //    b = Convert.ToInt32(Console.ReadLine());
+
+            //    Div2(a, b);
+            //}
+            ////catch (DivideByZeroException e)
+            ////{ 
+
+            ////}
+            //catch (MyException ex) 
+            //{
+            //    foreach (var item in ex.Data.Keys)
+            //    {
+            //        Console.WriteLine($"{item} - {ex.Data[item]}");
+            //    }
+
+            //}
+            //catch (Exception ex) when (!ex.Source.Contains("SPD321"))
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    Console.WriteLine(ex.Source);
+            //    Console.WriteLine(ex.InnerException);
+            //    //foreach (var item in ex.Data.Keys)
+            //    //{
+            //    //    Console.WriteLine($"{item} - {ex.Data[item]}");
+            //    //}
+            //    Console.WriteLine(ex.HelpLink);
+            //    Console.WriteLine(ex.HResult);
+            //    Console.WriteLine(ex.TargetSite);
+            //    Console.WriteLine(ex.StackTrace);
+            //}
+            //finally
+            //{
+
+            //}
+
+
+
+
+            //Group group = new Group();
+            //foreach (Student s in group)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+            ////group.Sort(new DateComparer());
+            ////group.Sort(Student.FromBirthDay);
+            //group.Sort(Student.FromStudentCard);
+            //Console.WriteLine();
+            //foreach (Student s in group)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+
+            //Student s1 = new Student
+            //{
+            //    FirstName = "Olga",
+            //    LastName = "Pirogova",
+            //    BirthDay = new DateTime(2000, 10, 10),
+            //    StudentCard = new StudentCard { Series = "AB", Number = 123456 }
+            //};
+
+            //Student s2 = (Student)s1.Clone();
+
+            //s2.StudentCard.Series = "XX";
+
+            //Console.WriteLine(s1);
+            //Console.WriteLine(s2);
+
+
+
 
             //group.GetEnumerator();
 

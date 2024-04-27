@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 namespace SPD321_CSharp
 {
 
-    public class StudentCard
+    public class StudentCard : IComparable
     {
         public string Series { get; set; }
 
         public int Number { get; set; }
+
+        public int CompareTo(object? obj)
+        {
+            StudentCard sc = obj as StudentCard;
+            return (Series+Number.ToString()).CompareTo(sc.Series+sc.Number.ToString());
+            throw new NotImplementedException();
+        }
 
         public override string ToString()
         {
@@ -20,7 +27,7 @@ namespace SPD321_CSharp
         }
     }
 
-    public class Student : IComparable
+    public class Student : IComparable, ICloneable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -28,6 +35,9 @@ namespace SPD321_CSharp
         public DateTime BirthDay { get; set; }
 
         public StudentCard StudentCard { get; set; }
+
+        public static IComparer FromBirthDay { get { return new DateComparer(); } }
+        public static IComparer FromStudentCard { get { return new StudentCardComparer(); } }
 
         public int CompareTo(object? obj)
         {
@@ -38,6 +48,17 @@ namespace SPD321_CSharp
         public override string ToString()
         {
             return $"{LastName.PadRight(10)} {FirstName.PadRight(10)} {BirthDay.ToShortDateString()} {StudentCard}";
+        }
+
+        public object Clone()
+        {
+            Student s = (Student)this.MemberwiseClone();
+            s.StudentCard = new StudentCard 
+            { 
+                Series = this.StudentCard.Series, 
+                Number =  this.StudentCard.Number 
+            };
+            return s;
         }
     }
 
@@ -96,11 +117,38 @@ namespace SPD321_CSharp
     {
         public int Compare(object? x, object? y)
         {
-            if(x is Student student && y is Student)
+            if (x is Student student && y is Student)
             {
                 return DateTime.Compare((x as Student).BirthDay, (y as Student).BirthDay);
             }
             throw new NotImplementedException();
         }
     }
+
+
+    //public class StudentCardComparer : IComparer
+    //{
+    //    public int Compare(object? x, object? y)
+    //    {
+    //        if (x is Student student && y is Student)
+    //        {
+
+    //        }
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
+    public class StudentCardComparer : IComparer
+    {
+        public int Compare(object? x, object? y)
+        {
+            if (x is Student student && y is Student)
+            {
+                return (x as Student).StudentCard.CompareTo((y as Student).StudentCard);
+            }
+
+            throw new NotImplementedException();
+        }
+    }
+
 }
