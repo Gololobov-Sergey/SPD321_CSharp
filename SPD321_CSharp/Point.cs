@@ -187,4 +187,47 @@ namespace SPD321_CSharp
 
 
     }
+
+
+    public class Point2D<T> where T: /*struct*/ class, /*Human*/ ICloneable, new()
+    {
+        public T? X { get; set; }
+        public T? Y { get; set; }
+
+        public Point2D(T x, T y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public Point2D()
+        {
+            X = default;
+            Y = default;
+        }
+    }
+
+
+    public class Point3D<T1, T2> : Point2D<T2>
+    {
+
+    }
+
+
+    public class A1<T>
+    {
+        public class B1
+        {
+
+        }
+    }
+
+
+    public class A2<T>
+    {
+        public class B2<T2>
+        {
+
+        }
+    }
 }

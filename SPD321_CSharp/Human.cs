@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SPD321_CSharp
 {
-    internal class Human
+    public class Human
     {
         protected int age;
 

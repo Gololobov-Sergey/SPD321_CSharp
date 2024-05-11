@@ -64,10 +64,26 @@ namespace SPD321_CSharp
         static void PrintGroup(Hashtable group)
         {
             // LN FN - Marks
+            foreach (Student st in group.Keys)
+            {
+                Console.Write(st.LastName + " " + st.FirstName + " - ");
+                foreach (int i in (ArrayList)group[st])
+                {
+                    Console.Write(i + ", ");
+                }
+                Console.WriteLine();
+            }
         }
 
         static void SetMark(Hashtable group, string lastName, string firstName, int mark) 
         {
+            foreach(Student st in group.Keys)
+            {
+                if(st.LastName == lastName && st.FirstName == firstName) 
+                {
+                    (group[st] as ArrayList).Add(mark);
+                }
+            }
 
         }
 
@@ -83,55 +99,111 @@ namespace SPD321_CSharp
             //// 11.05.2024 ///////
             ///
 
+            Point2D<int> p = new Point2D<int>();
+            Point2D<Student> p1 = new Point2D<Student>();
 
-            Hashtable group = new Hashtable
-            {
-                {
-                    new Student
-                    {
-                        FirstName="Olga",
-                        LastName="Pirogova",
-                        BirthDay=new DateTime(2000, 10,10),
-                        StudentCard = new StudentCard { Series="AB", Number=123456}
-                    },
-                    new ArrayList{8,10,12}
-                },
-                {
-                    new Student
-                    {
-                        FirstName="Serg",
-                        LastName="Petroff",
-                        BirthDay=new DateTime(2000, 10,4),
-                        StudentCard = new StudentCard { Series="AB", Number=123416}
-                    },
-                    new ArrayList{11,12,12}
-                },
-                {
-                    new Student
-                    {
-                        FirstName="Frol",
-                        LastName="Sidorov",
-                        BirthDay=new DateTime(2001, 3,15),
-                        StudentCard = new StudentCard { Series="AA", Number=123456}
-                    },
-                    new ArrayList{7,8,7}
-                },
-                {
-                    new Student
-                    {
-                        FirstName="Anna",
-                        LastName="Pirogova",
-                        BirthDay=new DateTime(1999, 5,1),
-                        StudentCard = new StudentCard { Series="AA", Number=123455}
-                    },
-                    new ArrayList{11,12,12}
-                }
-            };
 
-            PrintGroup(group);
-            SetMark(group, "Pirogova", "Anna", 12);
-            SetMark(group, "Pirogova", "Maria", 12);
-            PrintGroup(group);
+
+
+            //A1<int>.B1 b = new A1<int>.B1();
+
+            //A2<int>.B2<double> d = new A2<int>.B2<double>();
+
+
+
+            //Dictionary<string, int> dict = new Dictionary<string, int>
+            //{
+            //    ["tree"] = 3,
+            //    ["one"] = 1,
+            //    ["two"] = 2
+            //};
+
+            //dict["4"] = 4;
+            //dict["4"] = 0;
+
+            //foreach (var item in dict.Keys)
+            //{
+            //    Console.WriteLine(dict[item]);
+            //}
+
+            //int val;
+            //Console.WriteLine(dict.TryGetValue("4", out val));
+            //Console.WriteLine(val);
+            //Console.WriteLine(dict["one"]);
+
+
+
+            //using(new OperationTimer("ArrayList"))
+            //{
+            //    ArrayList arrayList = new ArrayList();
+            //    for(int i = 0; i < 100000000; i++)
+            //    {
+            //        arrayList.Add(i);
+            //        int a = (int)arrayList[i];
+            //    }
+            //    arrayList = null;
+            //}
+
+            //using (new OperationTimer("List"))
+            //{
+            //    List<int> list = new List<int>();
+            //    for (int i = 0; i < 100000000; i++)
+            //    {
+            //        list.Add(i);
+            //        int a = list[i];
+            //    }
+            //    list = null;
+            //}
+
+            //Hashtable group = new Hashtable
+            //{
+            //    {
+            //        new Student
+            //        {
+            //            FirstName="Olga",
+            //            LastName="Pirogova",
+            //            BirthDay=new DateTime(2000, 10,10),
+            //            StudentCard = new StudentCard { Series="AB", Number=123456}
+            //        },
+            //        new ArrayList{8,10,12}
+            //    },
+            //    {
+            //        new Student
+            //        {
+            //            FirstName="Serg",
+            //            LastName="Petroff",
+            //            BirthDay=new DateTime(2000, 10,4),
+            //            StudentCard = new StudentCard { Series="AB", Number=123416}
+            //        },
+            //        new ArrayList{11,12,12}
+            //    },
+            //    {
+            //        new Student
+            //        {
+            //            FirstName="Frol",
+            //            LastName="Sidorov",
+            //            BirthDay=new DateTime(2001, 3,15),
+            //            StudentCard = new StudentCard { Series="AA", Number=123456}
+            //        },
+            //        new ArrayList{7,8,7}
+            //    },
+            //    {
+            //        new Student
+            //        {
+            //            FirstName="Anna",
+            //            LastName="Pirogova",
+            //            BirthDay=new DateTime(1999, 5,1),
+            //            StudentCard = new StudentCard { Series="AA", Number=123455}
+            //        },
+            //        new ArrayList{11,12,12}
+            //    }
+            //};
+
+            //PrintGroup(group);
+            //SetMark(group, "Pirogova", "Anna", 12);
+            //SetMark(group, "Pirogova", "Maria", 12);
+            //Console.WriteLine();
+            //PrintGroup(group);
 
 
             //ArrayList arrayList = [1, "1", true];
