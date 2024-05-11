@@ -53,11 +53,22 @@ namespace SPD321_CSharp
 
         static void SuperFunc(string strname)
         {
-            if (strname ==  null)
+            if (strname == null)
             {
                 throw new ArgumentNullException(nameof(strname));
             }
             Console.WriteLine(strname);
+        }
+
+
+        static void PrintGroup(Hashtable group)
+        {
+            // LN FN - Marks
+        }
+
+        static void SetMark(Hashtable group, string lastName, string firstName, int mark) 
+        {
+
         }
 
         static void Main(string[] args)
@@ -68,6 +79,110 @@ namespace SPD321_CSharp
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
+
+            //// 11.05.2024 ///////
+            ///
+
+
+            Hashtable group = new Hashtable
+            {
+                {
+                    new Student
+                    {
+                        FirstName="Olga",
+                        LastName="Pirogova",
+                        BirthDay=new DateTime(2000, 10,10),
+                        StudentCard = new StudentCard { Series="AB", Number=123456}
+                    },
+                    new ArrayList{8,10,12}
+                },
+                {
+                    new Student
+                    {
+                        FirstName="Serg",
+                        LastName="Petroff",
+                        BirthDay=new DateTime(2000, 10,4),
+                        StudentCard = new StudentCard { Series="AB", Number=123416}
+                    },
+                    new ArrayList{11,12,12}
+                },
+                {
+                    new Student
+                    {
+                        FirstName="Frol",
+                        LastName="Sidorov",
+                        BirthDay=new DateTime(2001, 3,15),
+                        StudentCard = new StudentCard { Series="AA", Number=123456}
+                    },
+                    new ArrayList{7,8,7}
+                },
+                {
+                    new Student
+                    {
+                        FirstName="Anna",
+                        LastName="Pirogova",
+                        BirthDay=new DateTime(1999, 5,1),
+                        StudentCard = new StudentCard { Series="AA", Number=123455}
+                    },
+                    new ArrayList{11,12,12}
+                }
+            };
+
+            PrintGroup(group);
+            SetMark(group, "Pirogova", "Anna", 12);
+            SetMark(group, "Pirogova", "Maria", 12);
+            PrintGroup(group);
+
+
+            //ArrayList arrayList = [1, "1", true];
+            //foreach (var i in arrayList)
+            //{
+            //    Console.WriteLine(i);
+            //}
+
+            //Console.WriteLine(arrayList.Capacity);
+
+            //Stack stack = new Stack(arrayList);
+            //foreach (var i in stack)
+            //{
+            //    Console.WriteLine(i);
+            //}
+
+
+            //SortedList sList = new SortedList();
+            //sList.Add("31", 1);
+            //sList.Add("21", "2");
+            //foreach (var i in sList)
+            //{
+            //    Console.WriteLine(i);
+            //}
+
+
+
+
+            //Console.WriteLine(GC.MaxGeneration);
+            //Garbage g = new Garbage();
+            //Console.WriteLine(GC.GetGeneration(g));
+            //Console.WriteLine(GC.GetTotalMemory(false));
+            //g.CreateGarbage();
+            //Console.WriteLine(GC.GetTotalMemory(false));
+            //GC.Collect(0);
+            //Console.WriteLine(GC.GetGeneration(g));
+            //Console.WriteLine(GC.GetTotalMemory(false));
+            //GC.Collect();
+            //Console.WriteLine(GC.GetGeneration(g));
+            //Console.WriteLine(GC.GetTotalMemory(false));
+
+
+            //using (DB dB = new DB())
+            //{
+            //    dB.Connect();
+            //}
+
+            ///
+
+
+            //dB.Disconnect();
 
 
             //// 27.04.2024 ///////
