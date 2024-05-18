@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace SPD321_CSharp
@@ -87,6 +88,36 @@ namespace SPD321_CSharp
 
         }
 
+        static T MaxElem<T>(T[] arr) where T : IComparable<T>
+        {
+            T max = arr[0];
+            foreach(T t in arr)
+            {
+                if(t.CompareTo(max) > 0)
+                {
+                    max = t;
+                }
+            }
+            return max;
+        }
+
+        public delegate void VoidDelegate();
+
+        public delegate T1 UniverseDelegate<T1, T2, T3>(T2 a, T3 b);
+
+        public delegate void UDT<T>(T param);
+        public delegate T1 UDT1<T1, T2>(T2 param);
+
+        static void Hello()
+        {
+            Console.WriteLine("Hello!");
+        }
+
+        static void PrintStudent(Student student)
+        {
+            Console.WriteLine(student);
+        }
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -96,11 +127,153 @@ namespace SPD321_CSharp
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
+
+            //// 18.05.2024 ///////
+            ///
+
+            // type(name*)(int a) 
+            // name(a)
+
+
+
+
+            List<Student> students = new List<Student>
+            {
+                new Student
+                {
+                    FirstName="Olga",
+                    LastName="Pirogova",
+                    BirthDay=new DateTime(2000, 10,10),
+                    StudentCard = new StudentCard { Series="AB", Number=123456}
+                },
+                new Student
+                {
+                    FirstName="Serg",
+                    LastName="Petroff",
+                    BirthDay=new DateTime(2000, 10,4),
+                    StudentCard = new StudentCard { Series="AB", Number=123416}
+                },
+                new Student
+                {
+                    FirstName="Frol",
+                    LastName="Sidorov",
+                    BirthDay=new DateTime(2001, 3,15),
+                    StudentCard = new StudentCard { Series="AA", Number=123456}
+                },
+                new Student
+                {
+                    FirstName="Anna",
+                    LastName="Pirogova",
+                    BirthDay=new DateTime(1999, 5,1),
+                    StudentCard = new StudentCard { Series="AA", Number=123455}
+                }
+            };
+
+            Teacher teacher = new Teacher();
+
+            foreach (Student st in students)
+            {
+                teacher.ExamEvent += st.Exam;
+            }
+
+            ExamEventArgs examEventArgs = new ExamEventArgs
+            {
+                Teacher = "Gololobov Serhiy",
+                Date = DateTime.Now,
+                Course = "C#",
+                Room = 201
+            };
+
+            teacher.SetExam(examEventArgs);
+
+            teacher.ExamEvent -= students[0].Exam;
+
+            Console.WriteLine();
+
+            examEventArgs.Date = new DateTime(2024, 5, 27);
+            teacher.SetExam(examEventArgs);
+
+            //teacher.ExamEvent += Teacher_ExamEvent;
+
+
+
+            //students.ForEach(student => Console.WriteLine(student));
+            //students.ForEach(PrintStudent);
+
+            //Console.WriteLine();
+            //var st1 = students.Select(s => s.LastName + " " + s.FirstName).ToList();
+            //st1.ForEach(e => Console.WriteLine(e));
+
+            //Console.WriteLine(students.All(s => s.BirthDay.Year > 2000));
+            //Console.WriteLine(students.Average(s => DateTime.Now.Year - s.BirthDay.Year));
+            //Console.WriteLine();
+            //students.FindAll(s => s.BirthDay.Year > 2000).ForEach(PrintStudent);
+
+            //Console.WriteLine();
+            //students.Sort((s1, s2) => s1.BirthDay.Day.CompareTo(s2.BirthDay.Day));
+            //students.ForEach(PrintStudent);
+
+
+
+
+
+            VoidDelegate vd = Hello;
+            vd();
+            vd += delegate () { Console.WriteLine("GoodBye!"); };
+            vd();
+            vd += () => { Console.WriteLine("Ku-ku!"); };
+            vd();
+
+            //int a = Convert.ToInt32(Console.ReadLine());
+            //int b = Convert.ToInt32(Console.ReadLine());
+            //int op = Convert.ToChar(Console.ReadLine());
+
+            //CalDelegate cd = null;
+            //Calc calc = new Calc();
+
+            //UniverseDelegate<double, int, int> UD = Calc.Diff;
+            //Func<int, int, double> d = Calc.Diff;
+
+            //UDT<string> d1 = SuperFunc;
+            //UDT<Hashtable> d2 = PrintGroup;
+
+            //Action<string> d3 = SuperFunc;
+            //Action<Hashtable> d4 = PrintGroup;
+
+            //switch(op)
+            //{
+            //    case '+': cd = new CalDelegate(calc.Sum); break;
+            //    case '-': cd = new CalDelegate(Calc.Diff); break;
+            //    case '*': cd = calc.Mult; break;
+            //    case '/': cd = calc.Div; break;
+            //}
+
+            //Console.WriteLine(cd(a, b));
+
+
+            //cd += calc.Mult;
+            //cd += calc.Sum;
+            //cd += Calc.Diff;
+            //foreach (CalDelegate item in cd.GetInvocationList())
+            //{
+            //    Console.WriteLine(item(a, b));
+            //}
+            //Console.WriteLine();
+
+            //cd -= calc.Mult;
+            //foreach (CalDelegate item in cd.GetInvocationList())
+            //{
+            //    Console.WriteLine(item(a, b));
+            //}
+
+
+
+
             //// 11.05.2024 ///////
             ///
 
-            Point2D<int> p = new Point2D<int>();
-            Point2D<Student> p1 = new Point2D<Student>();
+            //Point2D<int> p = new Point2D<int>();
+            //Point2D<Student> p1 = new Point2D<Student>();
 
 
 
@@ -729,6 +902,16 @@ namespace SPD321_CSharp
             //    Console.WriteLine( Console.ReadLine() ); 
             //} while( true );
 
+        }
+
+        private static void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
+        {
+            Console.WriteLine("Cancel");
+        }
+
+        private static void Teacher_ExamEvent(object? sender, ExamEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

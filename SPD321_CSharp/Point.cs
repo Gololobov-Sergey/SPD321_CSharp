@@ -208,10 +208,10 @@ namespace SPD321_CSharp
     }
 
 
-    public class Point3D<T1, T2> : Point2D<T2>
-    {
+    //public class Point3D<T1, T2> : Point2D<T2>
+    //{
 
-    }
+    //}
 
 
     public class A1<T>

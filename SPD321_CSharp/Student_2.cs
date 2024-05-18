@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 namespace SPD321_CSharp
 {
 
-    public class StudentCard : IComparable
+    public class StudentCard : IComparable<StudentCard>
     {
         public string Series { get; set; }
 
         public int Number { get; set; }
 
-        public int CompareTo(object? obj)
+        public int CompareTo(StudentCard? sc)
         {
-            StudentCard sc = obj as StudentCard;
             return (Series+Number.ToString()).CompareTo(sc.Series+sc.Number.ToString());
-            throw new NotImplementedException();
         }
 
         public override string ToString()
@@ -27,7 +25,7 @@ namespace SPD321_CSharp
         }
     }
 
-    public class Student : IComparable, ICloneable
+    public class Student : IComparable<Student>, ICloneable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -36,12 +34,11 @@ namespace SPD321_CSharp
 
         public StudentCard StudentCard { get; set; }
 
-        public static IComparer FromBirthDay { get { return new DateComparer(); } }
-        public static IComparer FromStudentCard { get { return new StudentCardComparer(); } }
+        public static IComparer<Student> FromBirthDay { get { return new DateComparer(); } }
+        public static IComparer<Student> FromStudentCard { get { return new StudentCardComparer(); } }
 
-        public int CompareTo(object? obj)
+        public int CompareTo(Student? s)
         {
-            Student? s = obj as Student;
             return (LastName + FirstName).CompareTo(s!.LastName + s!.FirstName);
         }
 
@@ -60,8 +57,78 @@ namespace SPD321_CSharp
             };
             return s;
         }
+
+
+        //public void Exam(DateTime date)
+        //{
+        //    Console.WriteLine($"Студенту {LastName} {FirstName} назначений " +
+        //        $"екзамен на {date.ToShortDateString()}");
+        //}
+
+        public void Exam(object sender, ExamEventArgs e)
+        {
+            Console.WriteLine($"Студенту {LastName} {FirstName} викладач {e.Teacher} назначив " +
+                $"екзамен по {e.Course} на {e.Date.ToShortDateString()}, аудиторія {e.Room}");
+        }
     }
 
+    //public delegate void ExamDelegate(DateTime date);
+
+    public class Teacher
+    {
+        //1 public event ExamDelegate ExamEvent;
+
+        //2 public event Action<DateTime> ExamEvent;
+
+        SortedList<string, EventHandler<ExamEventArgs>> list = new();
+        
+        public event EventHandler<ExamEventArgs> ExamEvent
+        {
+            add 
+            {
+                Student s = value.Target as Student;
+                string key = s.LastName + s.FirstName;
+                list.Add(key, value);
+            }
+            remove 
+            {
+                Student s = value.Target as Student;
+                string key = s.LastName + s.FirstName;
+                list.Remove(key);
+            }
+        }
+
+        //public void SetExam(string date)
+        //{
+        //    if(ExamEvent != null)
+        //    {
+        //        ExamEvent(Convert.ToDateTime(date));
+        //    }
+        //}
+
+
+        public void SetExam(ExamEventArgs e)
+        {
+            //if (ExamEvent != null)
+            //{
+            //    ExamEvent(this, e);
+            //}
+
+            foreach (EventHandler<ExamEventArgs> item in list.Values)
+            {
+                item(this, e);
+            }
+        }
+    }
+
+    public class ExamEventArgs : EventArgs
+    {
+        public DateTime Date { get; set; }
+        public string Course { get; set; }
+        public int Room { get; set; }
+        public string Teacher { get; set; }
+
+    }
 
     public class Group : IEnumerable
     {
@@ -107,21 +174,21 @@ namespace SPD321_CSharp
             Array.Sort(students);
         }
 
-        public void Sort(IComparer comparer)
+        public void Sort(IComparer<Student> comparer)
         {
             Array.Sort(students, comparer);
         }
     }
 
-    public class DateComparer : IComparer
+    public class DateComparer : IComparer<Student>
     {
-        public int Compare(object? x, object? y)
+        public int Compare(Student? x, Student? y)
         {
-            if (x is Student student && y is Student)
-            {
-                return DateTime.Compare((x as Student).BirthDay, (y as Student).BirthDay);
-            }
-            throw new NotImplementedException();
+            //if (x is Student && y is Student)
+            //{
+            return DateTime.Compare((x as Student).BirthDay, (y as Student).BirthDay);
+            //}
+            //throw new NotImplementedException();
         }
     }
 
@@ -138,16 +205,11 @@ namespace SPD321_CSharp
     //    }
     //}
 
-    public class StudentCardComparer : IComparer
+    public class StudentCardComparer : IComparer<Student>
     {
-        public int Compare(object? x, object? y)
+        public int Compare(Student? x, Student? y)
         {
-            if (x is Student student && y is Student)
-            {
-                return (x as Student).StudentCard.CompareTo((y as Student).StudentCard);
-            }
-
-            throw new NotImplementedException();
+            return (x!.StudentCard.CompareTo(y!.StudentCard));
         }
     }
 
