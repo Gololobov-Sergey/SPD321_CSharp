@@ -25,8 +25,11 @@ namespace SPD321_CSharp
         }
     }
 
+    [Serializable]
+    [Programmer]
     public class Student : IComparable<Student>, ICloneable
     {
+        int code = 20;
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -37,6 +40,7 @@ namespace SPD321_CSharp
         public static IComparer<Student> FromBirthDay { get { return new DateComparer(); } }
         public static IComparer<Student> FromStudentCard { get { return new StudentCardComparer(); } }
 
+        [Programmer("Vasya", "2024-01-01")]
         public int CompareTo(Student? s)
         {
             return (LastName + FirstName).CompareTo(s!.LastName + s!.FirstName);

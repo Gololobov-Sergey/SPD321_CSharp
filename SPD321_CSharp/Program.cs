@@ -1,6 +1,10 @@
 ﻿using System.Collections;
+using System.Reflection;
 using System.Reflection.PortableExecutable;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
 namespace SPD321_CSharp
 {
@@ -127,14 +131,42 @@ namespace SPD321_CSharp
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
-
-            //// 18.05.2024 ///////
+            //// 25.05.2024 ///////
             ///
 
-            // type(name*)(int a) 
-            // name(a)
+
+            string pattern = @"^[1]\d{3}$";
+            Regex regex = new Regex(pattern);
+            while (true)
+            {
+                Console.WriteLine(regex.IsMatch(Console.ReadLine()));
+            }
 
 
+
+            Student student = new Student()
+            {
+                FirstName = "Olga",
+                LastName = "Pirogova",
+                BirthDay = new DateTime(2000, 10, 10),
+                StudentCard = new StudentCard { Series = "AB", Number = 123456 }
+            };
+
+            
+
+            //using (Stream s = File.Create("student.xml"))
+            //{
+            //    xml.Serialize(s, student);
+            //}
+
+
+            //student = null;
+
+            //using(Stream s = File.OpenRead("student.xml"))
+            //{
+            //    student = (Student)xml.Deserialize(s);
+            //    Console.WriteLine(student);
+            //}
 
 
             List<Student> students = new List<Student>
@@ -169,29 +201,220 @@ namespace SPD321_CSharp
                 }
             };
 
-            Teacher teacher = new Teacher();
+            //XmlSerializer xml = new XmlSerializer(typeof(List<Student>));
 
-            foreach (Student st in students)
+            //using (Stream s = File.Create("students.xml"))
+            //{
+            //     xml.Serialize(s, students);
+            //}
+
+            //List<Student> students_s;
+            //using (Stream s = File.OpenRead("students.xml"))
+            //{
+            //    students_s = (List<Student>)xml.Deserialize(s);
+            //}
+
+            //students_s.ForEach(s => Console.WriteLine(s));
+
+            //===========================================================
+
+            //foreach (var item in typeof(Student).GetCustomAttributes(true))
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //foreach (var item in typeof(Student).GetMethods())
+            //{
+            //    Console.WriteLine(item.Name);
+            //    foreach (Attribute m in item.GetCustomAttributes(true))
+            //    {
+            //        if(m is ProgrammerAttribute)
+            //            Console.WriteLine(m);
+            //    }
+            //    Console.WriteLine("===================================================");
+            //}
+
+            //====================================================
+
+            //using (FileStream fs = new FileStream("file.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            //{
+            //    string st = Console.ReadLine();
+            //    byte[] bytes = Encoding.UTF8.GetBytes(st);
+            //    fs.Write(bytes, 0, bytes.Length);
+            //}
+
+            //using(FileStream fs = new FileStream("file.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
+            //{
+            //    byte[] bytes = new byte[fs.Length];
+            //    fs.Read(bytes, 0, bytes.Length);
+            //    string st = Encoding.UTF8.GetString(bytes);
+            //    Console.WriteLine(st);
+            //}
+
+
+            //using (FileStream fs = new FileStream("file1.txt", FileMode.Create))
+            //{
+            //    using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
+            //    {
+            //        string st = "Слава Україні!";
+            //        sw.WriteLine(st);
+            //        foreach (var item in st)
+            //        {
+            //            sw.Write($"{item}*");
+            //        }
+            //    }                 
+            //}
+
+
+            //using (FileStream fs = new FileStream("file1.txt", FileMode.Open))
+            //{
+            //    using (StreamReader sr = new StreamReader(fs, Encoding.Unicode))
+            //    {
+            //        Console.WriteLine(sr.ReadToEnd());
+            //    }
+            //}
+
+            //using (FileStream fs = new FileStream("file2.bin", FileMode.Create))
+            //{
+            //    using (BinaryWriter bw = new BinaryWriter(fs, Encoding.Unicode))
+            //    {
+            //        string st = "Слава Україні!";
+            //        double d = 2.3654;
+            //        int a = 2024;
+            //        bw.Write(st);
+            //        bw.Write(d);
+            //        bw.Write(a);
+            //    }
+            //}
+
+            //using (FileStream fs = new FileStream("file2.bin", FileMode.Open))
+            //{
+            //    using (BinaryReader br = new BinaryReader(fs, Encoding.Unicode))
+            //    {
+            //        Console.WriteLine(br.ReadString());
+            //        Console.WriteLine(br.ReadDouble());
+            //        Console.WriteLine(br.ReadInt32());
+            //    }
+            //}
+
+
+            DirectoryInfo d = new DirectoryInfo(".");
+            //Console.WriteLine(d.FullName);
+            //Console.WriteLine(d.Name);
+            //Console.WriteLine(d.Parent);
+            //Console.WriteLine(d.Attributes);
+            var dd = d.EnumerateDirectories();
+            List<string> list = new List<string>();
+            foreach (var item in dd)
             {
-                teacher.ExamEvent += st.Exam;
+                //Console.WriteLine(item.Name);
+                list.Add(item.Name);
             }
-
-            ExamEventArgs examEventArgs = new ExamEventArgs
+            var ff = d.EnumerateFiles();
+            foreach (var item in ff)
             {
-                Teacher = "Gololobov Serhiy",
-                Date = DateTime.Now,
-                Course = "C#",
-                Room = 201
-            };
+                //Console.WriteLine(item.Name);
+                list.Add(item.Name);
+            }
+            ConsoleMenu.SelectVertical(HPosition.Left, VPosition.Top, HorizontalAlignment.Right, list);
 
-            teacher.SetExam(examEventArgs);
+            //DirectoryInfo d = new DirectoryInfo(".");
+            //string path = d.FullName + "/" + "file1.bin";
+            //FileInfo f = new FileInfo(path);
+            //if (f.Exists)
+            //{
+            //    if((f.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+            //    {
+            //        Console.WriteLine("Is Hidden");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Not");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Not exist");
+            //}
 
-            teacher.ExamEvent -= students[0].Exam;
+            //foreach (var item in Directory.GetLogicalDrives())
+            //{
+            //    Console.WriteLine(item);
+            //}
 
-            Console.WriteLine();
+            //using(StreamWriter sw = File.CreateText("text3.txt"))
+            //{
+            //    sw.WriteLine("Hello");
+            //}
 
-            examEventArgs.Date = new DateTime(2024, 5, 27);
-            teacher.SetExam(examEventArgs);
+            //using(StreamReader sr = File.OpenText("text3.txt"))
+            //{
+            //    Console.WriteLine(sr.ReadToEnd());
+            //}
+
+            //// 18.05.2024 ///////
+            ///
+
+            // type(name*)(int a) 
+            // name(a)
+
+
+            //List<Student> students = new List<Student>
+            //{
+            //    new Student
+            //    {
+            //        FirstName="Olga",
+            //        LastName="Pirogova",
+            //        BirthDay=new DateTime(2000, 10,10),
+            //        StudentCard = new StudentCard { Series="AB", Number=123456}
+            //    },
+            //    new Student
+            //    {
+            //        FirstName="Serg",
+            //        LastName="Petroff",
+            //        BirthDay=new DateTime(2000, 10,4),
+            //        StudentCard = new StudentCard { Series="AB", Number=123416}
+            //    },
+            //    new Student
+            //    {
+            //        FirstName="Frol",
+            //        LastName="Sidorov",
+            //        BirthDay=new DateTime(2001, 3,15),
+            //        StudentCard = new StudentCard { Series="AA", Number=123456}
+            //    },
+            //    new Student
+            //    {
+            //        FirstName="Anna",
+            //        LastName="Pirogova",
+            //        BirthDay=new DateTime(1999, 5,1),
+            //        StudentCard = new StudentCard { Series="AA", Number=123455}
+            //    }
+            //};
+
+            //Teacher teacher = new Teacher();
+
+            //foreach (Student st in students)
+            //{
+            //    teacher.ExamEvent += st.Exam;
+            //}
+
+            //ExamEventArgs examEventArgs = new ExamEventArgs
+            //{
+            //    Teacher = "Gololobov Serhiy",
+            //    Date = DateTime.Now,
+            //    Course = "C#",
+            //    Room = 201
+            //};
+
+            //teacher.SetExam(examEventArgs);
+
+            //teacher.ExamEvent -= students[0].Exam;
+
+            //Console.WriteLine();
+
+            //examEventArgs.Date = new DateTime(2024, 5, 27);
+            //teacher.SetExam(examEventArgs);
 
             //teacher.ExamEvent += Teacher_ExamEvent;
 
@@ -217,12 +440,12 @@ namespace SPD321_CSharp
 
 
 
-            VoidDelegate vd = Hello;
-            vd();
-            vd += delegate () { Console.WriteLine("GoodBye!"); };
-            vd();
-            vd += () => { Console.WriteLine("Ku-ku!"); };
-            vd();
+            //VoidDelegate vd = Hello;
+            //vd();
+            //vd += delegate () { Console.WriteLine("GoodBye!"); };
+            //vd();
+            //vd += () => { Console.WriteLine("Ku-ku!"); };
+            //vd();
 
             //int a = Convert.ToInt32(Console.ReadLine());
             //int b = Convert.ToInt32(Console.ReadLine());
