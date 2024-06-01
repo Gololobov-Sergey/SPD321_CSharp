@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace SPD321_CSharp
 {
@@ -122,6 +123,28 @@ namespace SPD321_CSharp
             Console.WriteLine(student);
         }
 
+
+        static void PrintNode(XmlNode node)
+        {
+            Console.WriteLine($"Type - {node.NodeType}, Name - {node.Name}, Value - {node.Value}");
+
+            if (node.Attributes != null)
+            {
+                foreach (XmlAttribute attr in node.Attributes)
+                {
+                    Console.WriteLine($"Type - {attr.NodeType}, Name - {attr.Name}, Value - {attr.Value}");
+                }
+            }
+            
+            if (node.HasChildNodes)
+            {
+                foreach (XmlNode child in node.ChildNodes)
+                {
+                    PrintNode(child);
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -131,28 +154,154 @@ namespace SPD321_CSharp
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
+            //// 01.06.2024 ///////
+            ///
+
+
+            //XmlTextWriter xml = new XmlTextWriter("Computers.xml",  Encoding.UTF8);
+            //xml.Formatting = Formatting.Indented;
+            //xml.WriteStartDocument();
+            //xml.WriteStartElement("Computers");
+
+            //xml.WriteStartElement("Computer");
+            //xml.WriteAttributeString("Type", "Home");
+            //xml.WriteElementString("MotherBoard", "ASUS");
+            //xml.WriteElementString("CPU", "Intel Core i15");
+            //xml.WriteElementString("RAM", "16GB");
+            //xml.WriteElementString("HD", "HDD");
+            //xml.WriteEndElement();
+
+            //xml.WriteStartElement("Computer");
+            //xml.WriteAttributeString("Type", "Game");
+            //xml.WriteElementString("MotherBoard", "MSI");
+            //xml.WriteElementString("CPU", "AMD Rizen 13");
+            //xml.WriteElementString("RAM", "16GB");
+            //xml.WriteElementString("HD", "SSD");
+            //xml.WriteEndElement();
+
+            //xml.WriteEndElement();
+            //xml.Close();
+
+            //XmlDocument xmlDoc = new XmlDocument();
+            //xmlDoc.Load("Computers.xml");
+            ////PrintNode(xmlDoc.DocumentElement);
+
+            //XmlNode comp = xmlDoc.CreateElement("Computer");
+            //XmlAttribute attr = xmlDoc.CreateAttribute("Type");
+            //attr.Value = "Office";
+            //comp.Attributes.Append(attr);
+
+            //XmlNode elem1 = xmlDoc.CreateElement("MotherBoard");
+            //XmlNode elem2 = xmlDoc.CreateElement("CPU");
+            //XmlNode elem3 = xmlDoc.CreateElement("RAM");
+            //XmlNode elem4 = xmlDoc.CreateElement("HD");
+
+            //XmlNode text1 = xmlDoc.CreateTextNode("Aser");
+            //XmlNode text2 = xmlDoc.CreateTextNode("Intel Celeron 200");
+            //XmlNode text3 = xmlDoc.CreateTextNode("4GB");
+            //XmlNode text4 = xmlDoc.CreateTextNode("HDD");
+
+            //elem1.AppendChild(text1);
+            //elem2.AppendChild(text2);
+            //elem3.AppendChild(text3);
+            //elem4.AppendChild(text4);
+
+            //comp.AppendChild(elem1);
+            //comp.AppendChild(elem2);
+            //comp.AppendChild(elem3);
+            //comp.AppendChild(elem4);
+
+            //xmlDoc.DocumentElement.AppendChild(comp);
+
+            //xmlDoc.Save("Computers2.xml");
+
+
+            //XmlTextReader xml = new XmlTextReader("Computers2.xml");
+            //xml.WhitespaceHandling = WhitespaceHandling.None;
+            //while (xml.Read())
+            //{
+            //    Console.WriteLine($"Type - {xml.NodeType}, Name - {xml.Name}, Value - {xml.Value}");
+            //    if (xml.AttributeCount > 0)
+            //    {
+            //        while (xml.MoveToNextAttribute())
+            //        {
+            //            Console.WriteLine($"Type - {xml.NodeType}, Name - {xml.Name}, Value - {xml.Value}");
+            //        }
+            //    }
+            //}
+
+            //Computer computer = new Computer();
+
+            //while (xml.Read())
+            //{
+            //    if (xml.NodeType == XmlNodeType.Element && xml.Name == "Computer")
+            //    {
+            //        if (xml.AttributeCount > 0)
+            //        {
+            //            while (xml.MoveToNextAttribute())
+            //            {
+            //                if (xml.Name == "Type" && xml.Value == "Game")
+            //                {
+            //                    computer.Type = xml.Value;
+
+            //                    xml.Read();
+            //                    xml.Read();
+            //                    computer.MB = xml.Value;
+            //                    xml.Read();
+
+            //                    xml.Read();
+            //                    xml.Read();
+            //                    computer.CPU = xml.Value;
+            //                    xml.Read();
+
+            //                    xml.Read();
+            //                    xml.Read();
+            //                    computer.RAM = xml.Value;
+            //                    xml.Read();
+
+            //                    xml.Read();
+            //                    xml.Read();
+            //                    computer.HD = xml.Value;
+            //                    xml.Read();
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            //Console.WriteLine(computer);
+
+
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange");
+            PrintNode(xmlDoc.DocumentElement);
+
+
+
+
             //// 25.05.2024 ///////
             ///
 
 
-            string pattern = @"^[1]\d{3}$";
-            Regex regex = new Regex(pattern);
-            while (true)
-            {
-                Console.WriteLine(regex.IsMatch(Console.ReadLine()));
-            }
+            //string pattern = @"^[1]\d{3}$";
+            //Regex regex = new Regex(pattern);
+            //while (true)
+            //{
+            //    Console.WriteLine(regex.IsMatch(Console.ReadLine()));
+            //}
 
 
 
-            Student student = new Student()
-            {
-                FirstName = "Olga",
-                LastName = "Pirogova",
-                BirthDay = new DateTime(2000, 10, 10),
-                StudentCard = new StudentCard { Series = "AB", Number = 123456 }
-            };
+            //Student student = new Student()
+            //{
+            //    FirstName = "Olga",
+            //    LastName = "Pirogova",
+            //    BirthDay = new DateTime(2000, 10, 10),
+            //    StudentCard = new StudentCard { Series = "AB", Number = 123456 }
+            //};
 
-            
+
 
             //using (Stream s = File.Create("student.xml"))
             //{
@@ -299,25 +448,25 @@ namespace SPD321_CSharp
             //}
 
 
-            DirectoryInfo d = new DirectoryInfo(".");
+            //DirectoryInfo d = new DirectoryInfo(".");
             //Console.WriteLine(d.FullName);
             //Console.WriteLine(d.Name);
             //Console.WriteLine(d.Parent);
             //Console.WriteLine(d.Attributes);
-            var dd = d.EnumerateDirectories();
-            List<string> list = new List<string>();
-            foreach (var item in dd)
-            {
-                //Console.WriteLine(item.Name);
-                list.Add(item.Name);
-            }
-            var ff = d.EnumerateFiles();
-            foreach (var item in ff)
-            {
-                //Console.WriteLine(item.Name);
-                list.Add(item.Name);
-            }
-            ConsoleMenu.SelectVertical(HPosition.Left, VPosition.Top, HorizontalAlignment.Right, list);
+            //var dd = d.EnumerateDirectories();
+            //List<string> list = new List<string>();
+            //foreach (var item in dd)
+            //{
+            //    //Console.WriteLine(item.Name);
+            //    list.Add(item.Name);
+            //}
+            //var ff = d.EnumerateFiles();
+            //foreach (var item in ff)
+            //{
+            //    //Console.WriteLine(item.Name);
+            //    list.Add(item.Name);
+            //}
+            //ConsoleMenu.SelectVertical(HPosition.Left, VPosition.Top, HorizontalAlignment.Right, list);
 
             //DirectoryInfo d = new DirectoryInfo(".");
             //string path = d.FullName + "/" + "file1.bin";
